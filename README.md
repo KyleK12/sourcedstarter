@@ -71,6 +71,7 @@ Organizing:
 	---------- jquery.js
 	---------- boostrap.js
 	---------- holder.js
+	---------- handlebars-v1.3.0.js
 	---------- bootstrap-tour.js
 	---------- jquery.cookie.js
 	----- ico <!-- for static icons -->
@@ -104,4 +105,4 @@ Magic:
 	Connect External APIs to integrate data from more services..
 	Perform algorithmic operations with your data using Javascript..
 
-	The Possiblities Are Up To Your Imagination!
+	Imagine!
