@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+
+		<!-- META -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+		<meta name="robots" content="NOODP, NOYDIR"><!-- Exclude DMOZ and Yahoo Directory page title and meta description -->
+	    <meta name="description" content="The Supreme Starter Kit">
+		<meta name="keywords" content="keywords, keyword">
+	    <meta name="author" content="Sourceness">
+	    <link rel="shortcut icon" href="../public/ico/Awaken.ico">
+
+		<title>The Supreme Starter Kit</title>
+
+		<!-- SCROLLS -->
+		<link rel="stylesheet" type="text/css" href="../public/css/bootstrap.css"><!-- load bootstrap -->
+		<link rel="stylesheet" type="text/css" href="../public/css/bootstrap-tour.min.css"><!-- load bootstrap-tour -->
+		<link rel="stylesheet" type="text/css" href="../public/css/style.css"> <!-- custom styles -->
+
+		<!-- SPELLS -->
+		<script src="../public/js/jquery.js"></script>
+	    <script src="../public/js/bootstrap.min.js"></script>
+
+	    <!-- SOURCERY -->
+		<script>
+
+			$(document).ready(function(){
+
+				function foundAllSuccess(resJSON) {
+
+				    var templateSource   = $("#stories-template").html();
+				    console.log('hello');
+
+				    console.log(templateSource);
+
+				    var template = Handlebars.compile(templateSource);
+
+				    var storyHTML = template({story: resJSON[0]});
+
+				   $('#page-container').html(storyHTML);
+				}
+
+				function foundAllFailure() {
+					alert(textStatus + "**:**" + errorThrown);
+				}
+
+				console.log('string');
+
+				$.ajax({
+				    url:"http://localhost:4200/api/v1/stories",
+				    method:'get',
+				    success: foundAllSuccess,
+					error: foundAllFailure
+
+				})
+
+			});
+
+	     </script>
+
+	</head>
+
+	<body>
+
+
+		{{{ body }}}
+
+
+		<div id="page-container">
+			<script id="stories-template" type="text/x-handlebars-template">
+	            <p>\{{ story.title }}</p>
+			</script>
+		</div>
+
+
+	    <!-- MORE SPELLS
+	    ================================================== -->
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+		<script src="../public/js/jquery.cookie.js"></script>
+	    <script src="../public/js/bootstrap-tour.min.js"></script>
+	    <script src="../public/js/handlebars-v1.3.0.js"></script>
+	    <script src="../public/js/holder.js"></script>
+	    <script src="../public/js/tour.js"></script>
+
+
+		<!-- SOURCERY -->
+		<script>
+
+			$( function() {
+			   $('.lightBtn').click( function() {
+				  var color = "white";
+				  $("body").removeClass("black").addClass(color);
+				  $(".modal-content").removeClass("black").addClass(color);
+				  $(".btn").removeClass("white").addClass(color);
+				  $(".dropdown-menu").removeClass("black").addClass(color);
+			      createCookie("color", color);
+			      return false;
+			   });
+			   $('.darkBtn').click( function() {
+				  var color = "black";
+				  $("body").removeClass("white").addClass(color);
+				  $(".modal-content").removeClass("white").addClass(color);
+				  $(".btn").removeClass("white").addClass(color);
+				  $(".dropdown-menu").removeClass("white").addClass(color);
+			      createCookie("color", color);
+			      return false;
+			   });
+
+				var cookieColor = readCookie("color");
+				var removeColor = "";
+				if(cookieColor == null){
+				    cookieColor = "white";
+				    removeColor = "black";      
+				} else if(cookieColor != 'white'){
+				    removeColor = "black";
+				} else if(cookieColor != 'black'){
+				    removeColor = "white";
+				}
+
+				$("body").removeClass(removeColor).addClass(cookieColor);
+				$(".btn").removeClass(removeColor).addClass(cookieColor);
+				$(".modal-content").removeClass(removeColor).addClass(cookieColor);
+				$(".dropdown-menu").removeClass(removeColor).addClass(cookieColor);
+
+			});
+
+			function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+			}
+
+			function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+			}
+
+			function eraseCookie(name) {
+			createCookie(name,"",-1);
+			}
+
+		</script>
+
+	</body>
+
+</html>
